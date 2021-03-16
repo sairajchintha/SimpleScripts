@@ -1,4 +1,5 @@
 import urllib3
+import urllib.request
 import requests
 import json
 from PIL import Image 
@@ -19,28 +20,29 @@ print("Posts : ",info['graphql']['user']['edge_owner_to_timeline_media']['count'
 print("Followers : ",info['graphql']['user']['edge_followed_by']['count'])
 print("Followed : ",info['graphql']['user']['edge_follow']['count'])
 
-response = requests.get(dpUrl)
+#response = requests.get(dpUrl)
 
-file = open("insta_image.jpg", "wb")
-file.write(response.content)
-print("\n===> Profile pic Downloaded as insta_image.jpg <===")
-file.close()
+path=r"C:\Users\Asus\Desktop\insta"
 
-C:\Users\Asus\Desktop\sample.py
+urllib.request.urlretrieve(dpUrl, str(path)+"/image"+".jpg")
+
+
+
+
 # creating a object for image 
-im = Image.open(r"C:\Users\Asus\Desktop\insta_image.jpg")#here use your path where python files are stored.
+im = Image.open(path+"\image.jpg")#here use your path where python files are stored.
 
 #this show() uses computer's image viewer
 #im.show()
 
 #to convert the jpg image to ppm format
-im.save(r"C:\Users\Asus\Desktop\insta_image.ppm")
+im.save(path+"\image.ppm")
 
 #To display image GUI using tkinter package
 from tkinter import *     
 root = Tk()      
 canvas = Canvas(root, width = 300, height = 300)      
 canvas.pack()      
-img = PhotoImage(file="insta_image1.ppm")      
+img = PhotoImage(file=path+"\image.ppm")      
 canvas.create_image(20,20, anchor=NW, image=img)      
 mainloop()   
